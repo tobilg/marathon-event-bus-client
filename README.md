@@ -86,6 +86,8 @@ The function arguments are:
 
 ### Example code
 
+For a complete example, have a look at [examples/example.js](examples/example.js).
+
 ```javascript
 // Use the MarathonEventBusClient
 const MarathonEventBusClient = require("marathon-event-bus-client");
