@@ -115,7 +115,7 @@ const mebc = new MarathonEventBusClient({
                 }
             });
         },
-        "deployment_info": function (name, data) {
+        "deployment_success": function (name, data) {
             console.log("Custom handler for " + name);
         }
     }
