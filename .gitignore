@@ -18,6 +18,3 @@ node_modules
 
 # WebStorm files
 .idea
-
-# Private test
-tests/test.js
