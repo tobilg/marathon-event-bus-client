@@ -56,6 +56,7 @@ You can specify the following properties when instantiating the Marathon Event B
  * `marathonProtocol`: The Marathon protocol (`http` or `https`). Default is `http`. 
  * `marathonUri`: The relative path where the Marathon Event Bus endpoint can be found. Default is `/v2/events`.
  * `eventTypes`: An `array` of event types emitted by Marathon (see above for a list). Default is `["deployment_info", "deployment_success", "deployment_failed"]`.
+ * `handlers`: A map object consisting of handler functions for the individual Marathon events. See [below](#handler-functions) for an explanation. No defaults.
 
 ### Methods
 
