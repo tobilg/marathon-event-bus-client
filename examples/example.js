@@ -36,15 +36,17 @@ const mebc = new MarathonEventBusClient({
     }
 });
 
-// Wait for "connected" event
-mebc.on("connected", function () {
+// Wait for "subscribed" event
+mebc.on("subscribed", function () {
+
+    console.log("Subscribed to the Marathon Event Bus");
 
     // For example purposes: Log all events we receive
     // In real-world usage, you should define what needs to be done when
     // receiving specific events in the `handlers` property for each event type
     eventTypes.forEach(function (eventType) {
         mebc.on(eventType, function (data) {
-            //console.log(JSON.stringify(data));
+            console.log("Caught '" + eventType + "' event!");
         });
     });
 
@@ -64,6 +66,11 @@ mebc.on("connected", function () {
         server.close();
     }, 30000);
 
+});
+
+// Wait for "unsubscribed" event
+mebc.on("unsubscribed", function () {
+    console.log("Unsubscribed from the Marathon Event Bus");
 });
 
 // Catch error events

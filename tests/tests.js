@@ -46,8 +46,8 @@ describe("MarathonEventBusClient tests", function() {
 
             mebc.subscribe();
 
-            mebc.on("connected", function () {
-                console.log("connected!");
+            mebc.on("subscribed", function () {
+                console.log("subscribed!");
             });
 
             mebc.on("connectionId", function (connectionId) {
