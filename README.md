@@ -1,5 +1,7 @@
 # marathon-event-bus-client
 
+[![Package version](https://img.shields.io/npm/v/marathon-event-bus-client.svg)](https://www.npmjs.com/package/marathon-event-bus-client) [![Package downloads](https://img.shields.io/npm/dt/marathon-event-bus-client.svg)](https://www.npmjs.com/package/marathon-event-bus-client) [![Package license](https://img.shields.io/npm/l/marathon-event-bus-client.svg)](https://www.npmjs.com/package/marathon-event-bus-client) [![Build Status](https://travis-ci.org/tobilg/marathon-event-bus-client.svg?branch=master)](https://travis-ci.org/tobilg/marathon-event-bus-client)
+
 A generic client to listen to Marathon's (Server Sent) Event Bus.
 
 ## Events
