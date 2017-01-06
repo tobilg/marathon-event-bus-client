@@ -2,7 +2,9 @@
 
 A generic client to listen to Marathon's (Server Sent) Event Bus.
 
-## Known Marathon events
+## Events
+
+### Known Marathon events
 
 As of the [Marathon sources](https://github.com/mesosphere/marathon/blob/master/src/main/scala/mesosphere/marathon/core/event/Events.scala) there are currently the following events:
 
@@ -35,4 +37,119 @@ As of the [Marathon sources](https://github.com/mesosphere/marathon/blob/master/
  * `instance_health_changed_event`
  * `framework_message_event`
  
+### Internal events
+
+The Marathon Event Bus Client itself emits the following events:
+ 
+ * `subscribed`: Is emitted after a successful subscription to the Marathon Event Bus.
+ * `unsubscribed`: Is emitted after `unsubscribe()` is called.
+ * `error`: Is emitted in case of internal or upstream errors.
+   
 ## Using the client
+
+### Options
+
+You can specify the following properties when instantiating the Marathon Event Bus Client:
+
+ * `marathonUrl`: The Marathon base URL. Default is `master.mesos`.
+ * `marathonPort`: The Marathon port. Default is `8080`.
+ * `marathonProtocol`: The Marathon protocol (`http` or `https`). Default is `http`. 
+ * `marathonUri`: The relative path where the Marathon Event Bus endpoint can be found. Default is `/v2/events`.
+ * `eventTypes`: An `array` of event types emitted by Marathon (see above for a list). Default is `["deployment_info", "deployment_success", "deployment_failed"]`.
+
+### Methods
+
+The Marathon Event Bus Client only exposes the `subscribe()` and the `unsubscribe()` methods. You can catch all above events via `on(<eventType>, function (data) { ... }`.
+
+### Handler functions
+
+The custom event handler functions can be configured by setting a map object as `handlers` property during the instantiation. Each map object's property represents a event handling function. The property name needs to match on of the Marathon event types from above. 
+
+This is an example `handlers` map object:
+
+```javascript
+{ // Specify the custom event handlers
+    "deployment_info": function (name, data) {
+        console.log("We have a new deployment info!");
+    },
+    "deployment_success": function (name, data) {
+        console.log("Our deployment was successful!");
+    }
+}
+```
+
+The function arguments are:
+
+ * `name`: The name of the emitted event
+ * `data`: The emitted data for the event
+
+### Example code
+
+```javascript
+// Use the MarathonEventBusClient
+const MarathonEventBusClient = require("marathon-event-bus-client");
+
+// Define relevant event types
+const eventTypes = ["deployment_info", "deployment_success", "deployment_failed"];
+
+// Create MarathonEventBusClient instance
+const mebc = new MarathonEventBusClient({
+    marathonUrl: "localhost", // Use SSE test server
+    eventTypes: eventTypes,
+    handlers: { // Specify the custom event handlers
+        "deployment_info": function (name, data) {
+            console.log("Custom handler for " + name);
+            // Send information of the "deployment_info" event to an external service (here: Just an echo service)
+            request("https://echo.getpostman.com/get?name=" + name + "&startTime=" + data.timestamp, function (error, response, body) {
+                body = JSON.parse(body);
+                if (!error && response.statusCode == 200) {
+                    console.log("Here's the data we have just sent to the echo service:");
+                    console.log("--------------------");
+                    console.log(JSON.stringify(body.args)); // Show the sent data
+                    console.log("--------------------");
+                }
+            });
+        },
+        "deployment_info": function (name, data) {
+            console.log("Custom handler for " + name);
+        }
+    }
+});
+
+// Wait for "connected" event
+mebc.on("connected", function () {
+
+    console.log("Subscribed to the Marathon Event Bus");
+    
+    // For example purposes: Log all events we receive
+    // In real-world usage, you should define what needs to be done when
+    // receiving specific events in the `handlers` property for each event type
+    eventTypes.forEach(function (eventType) {
+        mebc.on(eventType, function (data) {
+            console.log("Caught '" + eventType + "' event!");
+        });
+    });
+
+    // Shutdown after 30 seconds
+    setTimeout(function () {
+        console.log("Shutting down");
+        // Unsubscribe from Event Bus
+        mebc.unsubscribe();
+    }, 30000);
+
+});
+
+// Wait for "unsubscribed" event
+mebc.on("unsubscribed", function () {
+    console.log("Unsubscribed from the Marathon Event Bus");
+});
+
+// Catch error events
+mebc.on("error", function (errorObj) {
+    console.log("Got an error on " + errorObj.timestamp + ":");
+    console.log(JSON.stringify(errorObj.error));
+});
+
+// Subscribe to Marathon Event Bus
+mebc.subscribe();
+```
