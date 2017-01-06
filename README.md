@@ -64,7 +64,7 @@ The Marathon Event Bus Client only exposes the `subscribe()` and the `unsubscrib
 
 ### Handler functions
 
-The custom event handler functions can be configured by setting a map object as `handlers` property during the instantiation. Each map object's property represents a event handling function. The property name needs to match on of the Marathon event types from above. 
+The custom event handler functions can be configured by setting a map object as `handlers` property during the instantiation. Each map object's property represents a event handling function. The property name needs to match on of the Marathon event types from the [list of known Marathon events](#known-marathon-events). 
 
 This is an example `handlers` map object:
 
