@@ -4,6 +4,14 @@
 
 A generic client to listen to Marathon's (Server Sent) Event Bus.
 
+## Usage
+
+Install as a dependency like this:
+
+```bash
+npm install marathon-event-bus-client --save
+```
+
 ## Events
 
 ### Known Marathon events
@@ -88,7 +96,7 @@ The function arguments are:
 
 ### Example code
 
-For a complete example, have a look at [examples/example.js](examples/example.js).
+For a complete example, have a look at [examples/example.js](examples/example.js). Also, for a "real-life example", you can refer to [marathon-slack](https://github.com/tobilg/marathon-slack). 
 
 ```javascript
 // Use the MarathonEventBusClient
