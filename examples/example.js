@@ -17,7 +17,7 @@ const request = require("request");
 
 // Create MarathonEventBusClient instance
 const mebc = new MarathonEventBusClient({
-    marathonUrl: "localhost", // Use SSE test server
+    marathonHost: "localhost", // Use SSE test server
     eventTypes: eventTypes,
     handlers: { // Specify the custom event handlers
         "deployment_info": function (name, data) {

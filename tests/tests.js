@@ -20,7 +20,7 @@ describe("MarathonEventBusClient tests", function() {
         let mebc = MarathonEventBusClient({});
         expect(mebc).to.be.instanceOf(MarathonEventBusClient);
         expect(mebc.options.eventTypes).to.be.an("array");
-        expect(mebc.options.marathonUrl).to.equal("master.mesos");
+        expect(mebc.options.marathonHost).to.equal("master.mesos");
         expect(mebc.options.marathonPort).to.equal(8080);
         expect(mebc.options.marathonProtocol).to.equal("http");
     });
@@ -37,7 +37,7 @@ describe("MarathonEventBusClient tests", function() {
 
         it("Should connect and receive a 'deployment_info' event", (done) => {
             let mebc = MarathonEventBusClient({
-                marathonUrl: "localhost",
+                marathonHost: "localhost",
                 marathonPort: port,
                 enableConnectionEvent: true
             });
