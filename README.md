@@ -61,7 +61,7 @@ The Marathon Event Bus Client itself emits the following events:
 
 You can specify the following properties when instantiating the Marathon Event Bus Client:
 
- * `marathonUrl`: The Marathon base URL. Default is `master.mesos`.
+ * `marathonHost`: The Marathon base URL. Default is `master.mesos`.
  * `marathonPort`: The Marathon port. Default is `8080`.
  * `marathonProtocol`: The Marathon protocol (`http` or `https`). Default is `http`. 
  * `marathonUri`: The relative path where the Marathon Event Bus endpoint can be found. Default is `/v2/events`.
@@ -107,7 +107,7 @@ const eventTypes = ["deployment_info", "deployment_success", "deployment_failed"
 
 // Create MarathonEventBusClient instance
 const mebc = new MarathonEventBusClient({
-    marathonUrl: "localhost", // Use SSE test server
+    marathonHost: "localhost", // Use SSE test server
     eventTypes: eventTypes,
     handlers: { // Specify the custom event handlers
         "deployment_info": function (name, data) {
