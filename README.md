@@ -46,15 +46,15 @@ As of the [Marathon sources](https://github.com/mesosphere/marathon/blob/master/
  * `unknown_instance_terminated_event`
  * `instance_health_changed_event`
  * `framework_message_event`
- 
+
 ### Internal events
 
 The Marathon Event Bus Client itself emits the following events:
- 
+
  * `subscribed`: Is emitted after a successful subscription to the Marathon Event Bus.
  * `unsubscribed`: Is emitted after `unsubscribe()` is called.
  * `error`: Is emitted in case of internal or upstream errors.
-   
+
 ## Using the client
 
 ### Options
@@ -63,8 +63,10 @@ You can specify the following properties when instantiating the Marathon Event B
 
  * `marathonHost`: The Marathon base URL. Default is `master.mesos`.
  * `marathonPort`: The Marathon port. Default is `8080`.
- * `marathonProtocol`: The Marathon protocol (`http` or `https`). Default is `http`. 
+ * `marathonProtocol`: The Marathon protocol (`http` or `https`). Default is `http`.
  * `marathonUri`: The relative path where the Marathon Event Bus endpoint can be found. Default is `/v2/events`.
+ * `marathonHeaders`: If you are using Marathon from outside you can add options to the request. Default is an empty object `{}`.
+ Example: `marathonHeaders = { headers: {'Authorization': 'token=MARATHON_AUTH_TOKEN'}`
  * `eventTypes`: An `array` of event types emitted by Marathon (see above for a list). Default is `["deployment_info", "deployment_success", "deployment_failed"]`.
  * `handlers`: A map object consisting of handler functions for the individual Marathon events. See [below](#handler-functions) for an explanation. No defaults.
 
@@ -74,7 +76,7 @@ The Marathon Event Bus Client only exposes the `subscribe()` and the `unsubscrib
 
 ### Handler functions
 
-The custom event handler functions can be configured by setting a map object as `handlers` property during the instantiation. Each map object's property represents a event handling function. The property name needs to match on of the Marathon event types from the [list of known Marathon events](#known-marathon-events). 
+The custom event handler functions can be configured by setting a map object as `handlers` property during the instantiation. Each map object's property represents a event handling function. The property name needs to match on of the Marathon event types from the [list of known Marathon events](#known-marathon-events).
 
 This is an example `handlers` map object:
 
@@ -96,7 +98,7 @@ The function arguments are:
 
 ### Example code
 
-For a complete example, have a look at [examples/example.js](examples/example.js). Also, for a "real-life example", you can refer to [marathon-slack](https://github.com/tobilg/marathon-slack). 
+For a complete example, have a look at [examples/example.js](examples/example.js). Also, for a "real-life example", you can refer to [marathon-slack](https://github.com/tobilg/marathon-slack).
 
 ```javascript
 // Use the MarathonEventBusClient
@@ -133,7 +135,7 @@ const mebc = new MarathonEventBusClient({
 mebc.on("connected", function () {
 
     console.log("Subscribed to the Marathon Event Bus");
-    
+
     // For example purposes: Log all events we receive
     // In real-world usage, you should define what needs to be done when
     // receiving specific events in the `handlers` property for each event type
