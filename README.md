@@ -65,7 +65,7 @@ You can specify the following properties when instantiating the Marathon Event B
  * `marathonPort`: The Marathon port. Default is `8080`.
  * `marathonProtocol`: The Marathon protocol (`http` or `https`). Default is `http`.
  * `marathonUri`: The relative path where the Marathon Event Bus endpoint can be found. Default is `/v2/events`.
- * `marathonHeaders`: If you are using Marathon from outside you can add options to the request. Default is an empty object `{}`.
+ * `marathonHeaders`: Allows you to add headers to Marathon's API requests. Default is an empty object `{}`
  Example: `marathonHeaders = {'Authorization': 'token=API_ACCESS_TOKEN', 'Content-Type': 'application/json'}`
  * `eventTypes`: An `array` of event types emitted by Marathon (see above for a list). Default is `["deployment_info", "deployment_success", "deployment_failed"]`.
  * `handlers`: A map object consisting of handler functions for the individual Marathon events. See [below](#handler-functions) for an explanation. No defaults.
