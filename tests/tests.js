@@ -23,6 +23,7 @@ describe("MarathonEventBusClient tests", function() {
         expect(mebc.options.marathonHost).to.equal("master.mesos");
         expect(mebc.options.marathonPort).to.equal(8080);
         expect(mebc.options.marathonProtocol).to.equal("http");
+        expect(mebc.options.marathonHeaders).to.eql({});
     });
 
     describe("Using TestSSEServer", function () {
