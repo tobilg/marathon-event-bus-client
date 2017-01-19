@@ -19,7 +19,7 @@ const request = require("request");
 const mebc = new MarathonEventBusClient({
     marathonHost: "localhost", // Use SSE test server
     eventTypes: eventTypes,
-    marathonHeaders: { 'Authorization': 'zdasd', 'Content-Type': '', 'Date': '', 'Cookie': ''},
+    marathonHeaders: { 'Authorization': 'token=MARATHON_AUTH_TOKEN'}, // if you are using the api outisde the cluster
     handlers: { // Specify the custom event handlers
         "deployment_info": function (name, data) {
             console.log("Custom handler for " + name);
