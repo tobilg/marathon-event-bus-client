@@ -66,7 +66,7 @@ You can specify the following properties when instantiating the Marathon Event B
  * `marathonProtocol`: The Marathon protocol (`http` or `https`). Default is `http`.
  * `marathonUri`: The relative path where the Marathon Event Bus endpoint can be found. Default is `/v2/events`.
  * `marathonHeaders`: If you are using Marathon from outside you can add options to the request. Default is an empty object `{}`.
- Example: `marathonHeaders = {'Authorization': 'token=MARATHON_AUTH_TOKEN', 'Content-Type': 'application/json'}`
+ Example: `marathonHeaders = {'Authorization': 'token=API_ACCESS_TOKEN', 'Content-Type': 'application/json'}`
  * `eventTypes`: An `array` of event types emitted by Marathon (see above for a list). Default is `["deployment_info", "deployment_success", "deployment_failed"]`.
  * `handlers`: A map object consisting of handler functions for the individual Marathon events. See [below](#handler-functions) for an explanation. No defaults.
 
@@ -111,7 +111,7 @@ const eventTypes = ["deployment_info", "deployment_success", "deployment_failed"
 const mebc = new MarathonEventBusClient({
     marathonHost: "localhost", // Use SSE test server
     eventTypes: eventTypes,
-    marathonHeaders: {'Authorization': 'token=MARATHON_AUTH_TOKEN'} // if you are using the api outisde the cluster
+    marathonHeaders: {'Authorization': 'token=API_ACCESS_TOKEN'} // if you are using the api outisde the cluster
     handlers: { // Specify the custom event handlers
         "deployment_info": function (name, data) {
             console.log("Custom handler for " + name);
