@@ -65,8 +65,7 @@ You can specify the following properties when instantiating the Marathon Event B
  * `marathonPort`: The Marathon port. Default is `8080`.
  * `marathonProtocol`: The Marathon protocol (`http` or `https`). Default is `http`.
  * `marathonUri`: The relative path where the Marathon Event Bus endpoint can be found. Default is `/v2/events`.
- * `marathonHeaders`: Allows you to add headers to Marathon's API requests. Default is an empty object `{}`
- Example: `marathonHeaders = {'Authorization': 'token=API_ACCESS_TOKEN', 'Content-Type': 'application/json'}`
+ * `marathonHeaders`: A dict of http headers which should be added to Marathon's API requests , mainly for authentication/authorization (both `Authorization` and `Content-Type` are allowed). See the [Marathon docs](https://mesosphere.github.io/marathon/docs/ssl-basic-access-authentication.html) or the [DC/OS docs](https://dcos.io/docs/1.8/administration/id-and-access-mgt/iam-api/) for further info. Not used by default.
  * `eventTypes`: An `array` of event types emitted by Marathon (see above for a list). Default is `["deployment_info", "deployment_success", "deployment_failed"]`.
  * `handlers`: A map object consisting of handler functions for the individual Marathon events. See [below](#handler-functions) for an explanation. No defaults.
 
@@ -111,7 +110,9 @@ const eventTypes = ["deployment_info", "deployment_success", "deployment_failed"
 const mebc = new MarathonEventBusClient({
     marathonHost: "localhost", // Use SSE test server
     eventTypes: eventTypes,
-    marathonHeaders: {'Authorization': 'token=API_ACCESS_TOKEN'} // if you are using the api outisde the cluster
+    marathonHeaders: { // When using the Marathon Event Bus outside the cluster, otherwise just omit the marathonHeaders.
+        "Authorization": "token=<authentication-token>" // Replace <authentication-token> with a real authentication token
+    },
     handlers: { // Specify the custom event handlers
         "deployment_info": function (name, data) {
             console.log("Custom handler for " + name);
