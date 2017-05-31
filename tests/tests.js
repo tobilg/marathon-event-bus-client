@@ -1,18 +1,12 @@
 "use strict";
 
-const http = require("http");
-const crypto = require("crypto");
-
-const express = require("express");
-const SSE = require("sse");
-
 // Testing require
 const expect = require("chai").expect;
 const sinon = require("sinon");
 
 const MarathonEventBusClient = require("../index");
 const exampleEvents = require("./exampleEvents");
-const TestSSEServer = require("./TestSSEServer");
+const MarathonEventBusMockServer = require("marathon-event-bus-mock");
 
 describe("MarathonEventBusClient tests", function() {
 
@@ -25,12 +19,12 @@ describe("MarathonEventBusClient tests", function() {
         expect(mebc.options.marathonProtocol).to.equal("http");
     });
 
-    describe("Using TestSSEServer", function () {
+    describe("Using MarathonEventBusMockServer", function () {
 
         this.timeout(5000);
 
         const port = 8080;
-        const server = new TestSSEServer(port);
+        const server = new MarathonEventBusMockServer(port);
 
         before(server.listen.bind(server));
         after(server.close.bind(server));
