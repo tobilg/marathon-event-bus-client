@@ -1,6 +1,6 @@
 {
   "name": "marathon-event-bus-client",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Listen to Marathon's Event Bus, and send events to event handler implementations",
   "main": "index.js",
   "scripts": {
@@ -34,15 +34,16 @@
   },
   "homepage": "https://github.com/tobilg/marathon-event-bus-client#readme",
   "dependencies": {
-    "eventsource": "^0.2.1"
+    "eventsource": "^1.0.2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "express": "^4.14.0",
-    "mocha": "^3.2.0",
-    "publish-please": "^2.2.0",
-    "request": "^2.79.0",
-    "sinon": "^1.17.6",
+    "chai": "^4.0.0",
+    "express": "^4.15.3",
+    "marathon-event-bus-mock": "^0.1.0",
+    "mocha": "^3.4.2",
+    "publish-please": "^2.3.1",
+    "request": "^2.81.0",
+    "sinon": "^2.3.2",
     "sse": "0.0.6"
   }
 }
