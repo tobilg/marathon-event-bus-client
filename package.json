@@ -1,6 +1,6 @@
 {
   "name": "marathon-event-bus-client",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Listen to Marathon's Event Bus, and send events to event handler implementations",
   "main": "index.js",
   "scripts": {
@@ -39,7 +39,7 @@
   "devDependencies": {
     "chai": "^4.0.0",
     "express": "^4.15.3",
-    "marathon-event-bus-mock": "^0.1.0",
+    "marathon-event-bus-mock": "^0.1.1",
     "mocha": "^3.4.2",
     "publish-please": "^2.3.1",
     "request": "^2.81.0",
